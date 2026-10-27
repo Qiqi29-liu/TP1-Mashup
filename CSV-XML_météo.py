@@ -7,7 +7,7 @@ fichiers = [
     "ogd-smn_gve_h_historical_2020-2029.csv",
 ]
 
-# Lecture des colonnes utiles uniquement (beaucoup plus rapide)
+# Lecture des colonnes utiles uniquement 
 colonnes_utiles = ["reference_timestamp", "tre200h0", "rre150h0"]
 dfs = []
 for f in fichiers:
@@ -20,7 +20,7 @@ df = pd.concat(dfs, ignore_index=True)
 print(f"      -> {len(df)} relevés horaires chargés avec succès.")
 
 print("[2/4] Nettoyage et conversion des dates...")
-# Conversion du texte en vraies dates (JJ.MM.AAAA HH:mm -> YYYY-MM-DD)
+# Conversion du texte en dates (JJ.MM.AAAA HH:mm -> YYYY-MM-DD)
 df["date_dt"] = pd.to_datetime(
     df["reference_timestamp"], format="%d.%m.%Y %H:%M", errors="coerce"
 )
@@ -70,7 +70,7 @@ for _, row in bilan.iterrows():
     ET.SubElement(jour_elem, "pluie_mm").text = f"{pluie:.1f}"
     ET.SubElement(jour_elem, "etat_chaussee").text = etat
 
-# Sauvegarde avec indentation propre
+# Sauvegarde au propre
 tree = ET.ElementTree(root)
 ET.indent(tree, space="  ")
 tree.write("meteo_geneve.xml", encoding="utf-8", xml_declaration=True)
